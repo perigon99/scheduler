@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
+import DayListItem from "components/DayListItem"
 
-export default function DayList(props) {
-days = ["monday", "thusday", "wenesday", "Thursday", "friday", "sunday", "saturday"]
-day = "";
-const setDay = (nameOfDay) => {
+export default function DayList(props){
+
+  const renderListItem = props.days.map((day) => {
+    console.log("daylist component",day)
+    return <DayListItem 
+        name={day.name} 
+        spots={day.spots} 
+        selected={day.name === props.day}
+        setDay={props.setDay}  
+      />
+    })
   
-}
-return (
-  <div>
 
-  </div>
-)
+  return(
+    <ul>
+      {renderListItem}
+    </ul>
+  )
 }

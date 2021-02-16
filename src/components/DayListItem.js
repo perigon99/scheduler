@@ -6,10 +6,24 @@ export default function DayListItem(props) {
 const {name, spots, selected} = props;
 const DayListClass = classnames('day-list__item',{"day-list__item--selected": props.selected},
  {"day-list__item--full": props.spots === 0})
-  return (
-    <li onClick={() => props.setday(props.name)}>
-      <h2 className={DayListClass}>{name}</h2> 
-      <h3 className={DayListClass}>{spots} spots remaining</h3>
+
+const formatSpots = (remainingSpots) => {
+  if (remainingSpots < 1) {
+    return "no spots remaining"
+  }
+  if (remainingSpots === 1) {
+    return "1 spot remaining"
+  }
+  if (remainingSpots > 1) {
+    return `${remainingSpots} spots remaining`
+  }
+}
+console.log(props)
+return (
+
+    <li onClick={() => props.setDay(props.name)}>
+      <h2  className={DayListClass}>{name}</h2> 
+      <h3 className={DayListClass}>{formatSpots(spots)}</h3>
     </li>
   );
 }
