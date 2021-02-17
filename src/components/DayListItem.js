@@ -18,7 +18,6 @@ const formatSpots = (remainingSpots) => {
     return `${remainingSpots} spots remaining`
   }
 }
-console.log(props)
 return (
 
     <li onClick={() => props.setDay(props.name)}>
