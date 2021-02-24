@@ -1,5 +1,5 @@
 # Interview Scheduler
-![screenshot description](/public/images/01.pnj?raw=true "Title")
+![screenshot description](/public/images/01.png)
 ## Setup
 
 Install dependencies with `npm install`.
