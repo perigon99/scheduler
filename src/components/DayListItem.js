@@ -20,7 +20,7 @@ const formatSpots = (remainingSpots) => {
 }
 return (
 
-    <li onClick={() => props.setDay(props.name)}>
+    <li onClick={() => props.setDay(props.name)} data-testid="day">
       <h2  className={DayListClass}>{name}</h2> 
       <h3 className={DayListClass}>{formatSpots(spots)}</h3>
     </li>
