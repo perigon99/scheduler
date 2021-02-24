@@ -8,7 +8,5 @@ afterEach(cleanup);
 describe("Appointment", () => {
   it("renders without crashing", () => {
     render(<Appointment />);
-  })
-  //it("Saving will show after save button is clicked", async () => {
-    
+  })   
 });

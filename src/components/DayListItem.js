@@ -5,7 +5,7 @@ import classnames from "classnames";
 export default function DayListItem(props) {
 const {name, spots, selected} = props;
 const DayListClass = classnames('day-list__item',{"day-list__item--selected": props.selected},
- {"day-list__item--full": props.spots === 0})
+  {"day-list__item--full": props.spots === 0})
 
 const formatSpots = (remainingSpots) => {
   if (remainingSpots < 1) {
