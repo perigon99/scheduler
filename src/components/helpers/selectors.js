@@ -1,42 +1,40 @@
-
-
 export function getAppointmentsForDay(state, day) {
+  const getAppointements = [];
 
-    const getAppointements = []
-   
-    state.days.forEach(d => {if(d.name === day) {
-      d.appointments.forEach(dapp => {
-      getAppointements.push(state.appointments[dapp])
-      })
-    }})
-    return getAppointements;
-};
+  state.days.forEach((d) => {
+    if (d.name === day) {
+      d.appointments.forEach((dapp) => {
+        getAppointements.push(state.appointments[dapp]);
+      });
+    }
+  });
+  return getAppointements;
+}
 
 export function getInterviewersForDay(state, day) {
+  const getInterviewers = [];
 
-  const getInterviewers = []
- 
-  state.days.forEach(d => {if(d.name === day) {
-    d.interviewers.forEach(dapp => {
-      getInterviewers.push(state.interviewers[dapp])
-    })
-  }})
+  state.days.forEach((d) => {
+    if (d.name === day) {
+      d.interviewers.forEach((dapp) => {
+        getInterviewers.push(state.interviewers[dapp]);
+      });
+    }
+  });
   return getInterviewers;
-};
-
+}
 
 export function getInterview(state, interview) {
-  if(!interview) {
-    return null
+  if (!interview) {
+    return null;
   }
-  const uid = state.interviewers[state.appointments[`${interview.interviewer}`]]
+  const uid =
+    state.interviewers[state.appointments[`${interview.interviewer}`]];
   const student = interview.student;
   const newInterviewObj = {
-      
-      "student": student,
-      "interviewer": state.interviewers[`${interview.interviewer}`]
-  }
+    student: student,
+    interviewer: state.interviewers[`${interview.interviewer}`],
+  };
 
   return newInterviewObj;
-  
 }

@@ -1,20 +1,17 @@
 import React, { useLayoutEffect } from "react";
-import DayListItem from "components/DayListItem"
+import DayListItem from "components/DayListItem";
 
-export default function DayList(props){
-
+export default function DayList(props) {
   const renderListItem = props.days.map((day) => {
-    return <DayListItem 
+    return (
+      <DayListItem
         key={day.id}
-        name={day.name} 
-        spots={day.spots} 
+        name={day.name}
+        spots={day.spots}
         selected={day.name === props.day}
-        setDay={props.setDay}  
+        setDay={props.setDay}
       />
-    })
-  return(
-    <ul>
-      {renderListItem}
-    </ul>
-  )
+    );
+  });
+  return <ul>{renderListItem}</ul>;
 }
