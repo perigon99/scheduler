@@ -9,16 +9,6 @@ export default function useApplicationData() {
   });
 
   function bookInterview(id, interview) {
-    const days = [...state.days];
-    //const keyofdays = Object.keys(days)
-    if (!state.appointments[id].interview) {
-      for (let day in days) {
-        if (days[day].appointments.includes(id)) {
-          days[day].spots--;
-        }
-      }
-    }
-
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -27,12 +17,23 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    setState({
-      ...state,
-      appointments,
-      days,
+
+    const days = [...state.days];
+    if (!state.appointments[id].interview) {
+      for (let day in days) {
+        if (days[day].appointments.includes(id)) {
+          days[day].spots--;
+        }
+      }
+    }
+
+    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
+      setState({
+        ...state,
+        appointments,
+        days,
+      });
     });
-    return axios.put(`/api/appointments/${id}`, { interview });
   }
 
   function cancelInterview(id) {
@@ -44,18 +45,12 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    //debugger
-    //copy state.days
     const days = [...state.days];
-    //const keyofdays = Object.keys(days)
     for (let day in days) {
       if (days[day].appointments.includes(id)) {
         days[day].spots++;
       }
     }
-    //debugger
-    //loop state.days
-    //if day === interviews deleted => day.spot ++
     setState({
       ...state,
       appointments,

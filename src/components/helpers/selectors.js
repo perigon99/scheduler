@@ -28,8 +28,6 @@ export function getInterview(state, interview) {
   if (!interview) {
     return null;
   }
-  const uid =
-    state.interviewers[state.appointments[`${interview.interviewer}`]];
   const student = interview.student;
   const newInterviewObj = {
     student: student,

@@ -18,9 +18,7 @@ export default function Appointment(props) {
   const STATUS = "STATUS";
   const ERROR_SAVE = "ERROR_SAVE";
   const DELETING = "DELETING";
-  const ERROR_DELETE = "ERROR_DELETE";
 
-  const interviewers = props.appForDay;
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -30,11 +28,17 @@ export default function Appointment(props) {
       student: name,
       interviewer,
     };
-    transition(STATUS);
-    props
-      .bookInterview(props.id, interview)
-      .then(() => transition("SHOW"))
-      .catch((error) => transition(ERROR_SAVE, true));
+
+    if (interview.interviewer) {
+      transition(STATUS);
+
+      props
+        .bookInterview(props.id, interview)
+        .then(() => transition("SHOW"))
+        .catch((error) => transition(CREATE, true));
+    } else {
+      alert("Error no interviwer selected");
+    }
   }
 
   function cancel() {
@@ -42,7 +46,7 @@ export default function Appointment(props) {
     props
       .cancelInterview(props.id)
       .then(() => transition(EMPTY))
-      .catch((error) => transition(ERROR_SAVE, true));
+      .catch((error) => transition(SHOW, true));
   }
 
   function edit(name, interviewer) {
@@ -53,7 +57,7 @@ export default function Appointment(props) {
     transition(STATUS);
     props
       .bookInterview(props.id, interview)
-      .then(() => transition(EDIT))
+      .then(() => transition("SHOW"))
       .catch((error) => transition(ERROR_SAVE, true));
   }
   function destroy(event) {
@@ -89,13 +93,15 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewers={props.interviewers}
           setInterviewers={props.setInterviewers}
-          onSave={save}
+          onSave={edit}
           onCancel={() => back(EMPTY)}
         />
       )}
       {mode === STATUS && <Status message={"Saving"} />}
       {mode === DELETING && <Status message={"Deleting"} />}
-      {mode === ERROR_SAVE && <Error message={"404"} onCancel={() => back()} />}
+      {mode === ERROR_SAVE && (
+        <Error message={props.error} onCancel={() => back()} />
+      )}
     </article>
   );
 }
