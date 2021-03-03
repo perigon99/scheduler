@@ -1,5 +1,7 @@
 # Interview Scheduler
+
 ![screenshot description](/public/images/01.png)
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -9,6 +11,10 @@ Install dependencies with `npm install`.
 ```sh
 npm start
 ```
+
+## Note you will need the API backend server to make this application work
+
+### While in the server folder run npm start for STD use and nom ERROR to test the error handeling of the front end
 
 ## Running Jest Test Framework
 

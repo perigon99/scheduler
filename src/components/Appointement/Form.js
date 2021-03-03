@@ -4,14 +4,17 @@ import React, { useState } from "react";
 
 export default function Form(props) {
   const [name, setName] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [interviewer, setInterviewer] = useState(
+    props.interviewer ? props.interviewer.id : null
+  );
   const [error, setError] = useState("");
   const reset = () => {
     setName("");
     setInterviewer(null);
     props.onCancel();
   };
-  function validate() {
+  function validate(event) {
+    event.preventDefault();
     if (name === "") {
       setError("Student name cannot be blank");
       return;
@@ -48,7 +51,7 @@ export default function Form(props) {
           <Button danger onClick={reset}>
             Cancel
           </Button>
-          <Button confirm onClick={() => validate()}>
+          <Button confirm onClick={(e) => validate(e)}>
             Save
           </Button>
         </section>
