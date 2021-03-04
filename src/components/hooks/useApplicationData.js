@@ -9,25 +9,25 @@ export default function useApplicationData() {
   });
 
   function bookInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
+    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
+      const appointment = {
+        ...state.appointments[id],
+        interview: { ...interview },
+      };
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment,
+      };
 
-    const days = [...state.days];
-    if (!state.appointments[id].interview) {
-      for (let day in days) {
-        if (days[day].appointments.includes(id)) {
-          days[day].spots--;
+      const days = [...state.days];
+      if (!state.appointments[id].interview) {
+        for (let day in days) {
+          if (days[day].appointments.includes(id)) {
+            days[day].spots--;
+          }
         }
       }
-    }
 
-    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
       setState({
         ...state,
         appointments,
